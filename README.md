@@ -45,13 +45,7 @@ git clone https://github.com/runarion/literate-carnival-graphql-server.git
 cd literate-carnival-graphql-server
 ```
 
-2. Navigate to the graphql directory:
-
-```bash
-cd graphql
-```
-
-3. Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
@@ -62,14 +56,6 @@ Or install them manually:
 ```bash
 npm install express express-graphql nodemon
 npm install --save-dev @babel/cli @babel/core @babel/node @babel/preset-env
-```
-
-4. Create a `.babelrc` file in the graphql directory (if not present):
-
-```json
-{
-  "presets": ["@babel/preset-env"]
-}
 ```
 
 ## Running the Server

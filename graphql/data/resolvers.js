@@ -1,29 +1,33 @@
-class Product {
-  constructor(id, {name, description, price, soldOut, inventory, stores}) {
-    this.id = id;
-    this.name = name;
-    this.description = description;
-    this.price = price;
-    this.soldOut = soldOut;
-    this.inventory = inventory;
-    this.stores = stores;
-  }
-}
-
-const productDatabase = {};
+import { Widgets } from "./dbConnectors.js";
 
 const resolvers = {
-    getProduct: ({id}) => {
-        return new Product(id, productDatabase[id])
-    },
-    getAllProducts: () => {
-      return Object.keys(productDatabase).map(id => new Product(id, productDatabase[id]));
-    },
-    createProduct: ({input}) => {
-      let id = require('crypto').randomBytes(10).toString('hex');
-      productDatabase[id] = input;
-      return new Product(id, input);
-    }   
+  getProduct: async ({id}) => {
+    try {
+      const product = await Widgets.findById(id);
+      return product;
+    } catch (error) {
+      throw new Error("Error fetching product: " + error.message);
+    }
+  },
+
+  getAllProducts: async () => {
+    try {
+      const products = await Widgets.find({});
+      return products;
+    } catch (error) {
+      throw new Error("Error fetching products: " + error.message);
+    }
+  },
+
+  createProduct: async ({input}) => {
+    try {
+      const newProduct = new Widgets(input);
+      await newProduct.save();
+      return newProduct;
+    } catch (error) {
+      throw new Error("Error creating product: " + error.message);
+    }
+  }   
 }
 
 export default resolvers;

@@ -160,3 +160,42 @@ ISC
 
 runarion
 
+## Notes
+
+
+### Port availability
+
+If you encounter issues starting the server, check if port 8080 is already in use:
+
+```bash
+lsof -ti:8080
+```
+
+If it returns a process ID.
+Kill it with:
+
+```bash
+kill -9 $(lsof -ti:8080)
+```
+
+This will free up the port for the GraphQL server to start successfully.
+
+### MongDB Service
+
+Verify MongoDB is running.
+
+```bash
+brew services list | grep mongodb
+```
+
+It should show `started` status. If not, start it with:
+
+```bash
+brew services start mongodb-community
+```
+
+To stop the service later, use:
+
+```bash
+brew services stop mongodb-community
+```
